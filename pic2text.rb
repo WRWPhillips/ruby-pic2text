@@ -18,10 +18,6 @@ img_width = image.columns - image.columns % terminal_width
 chunk_size = img_width / terminal_width
 img_height = image.rows - image.rows % chunk_size 
 
-puts img_width
-puts img_height
-puts chunk_size
-
 #function for extracting brightness from pixel
 def brightness(pixel)
     Math.sqrt(
@@ -45,12 +41,19 @@ pixels.each_index do |i|
     end
 end
 
-puts chunk_array
-
-chunk_line = 0
+modifier = 0
+intensity_array = []
 chunk_array.each_index do |i|
     if i >= img_width-1
-        chunk_array[i-img_width] += chunk_array[i]
+        chunk_array[i - img_width * (i / img_width) -1] += chunk_array[i]
+        if i +1 == img_width * chunk_size
+            intensity_array.append(chunk_array.slice!(0, img_width * chunk_size - 1))
+        end 
+    end
+end 
+
+intensity_array[0].each do |x|
+    puts (10.fdiv(x) * 10).to_i
 end 
 # the next goal will be to iterate over pixels array, counting intensity by chunk.
 # then I will need to create a tally of intensity per chunk, per row, until rows reach chunk size

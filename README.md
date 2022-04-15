@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="./output.png" alt="horse image ascii output" width="80" height="80">
+    <img src="./output.png" alt="horse image ascii output" width="200" height="200">
   </a>
 
 <h3 align="center">Ruby Pic2Text</h3>
@@ -18,6 +18,6 @@
   </p>
   
   <p align="center">
-    
+    Written by Will Phillips.
   </p>
 </div>

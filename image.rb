@@ -3,14 +3,16 @@
 # image class
 class Image
   # variable terminal width, optional 2nd arg
-  TERMINAL_WIDTH = 200 || ARGV[1]
+
   # string of ascii densities I found online
   ASCII_DENSITY = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`. '.chars.reverse()
 
   # initialize 
-  def initialize(image)
+  def initialize(image, terminal_width)
     raise ArgumentError unless image.is_a?(Magick::ImageList)
     @image = image
+    raise ArgumentError unless terminal_width.is_a? Integer
+    @terminal_width = terminal_width
   end
 
   # the only public function, calls chunks which is the next last function
@@ -26,7 +28,7 @@ class Image
 
   # allows for reading attrs of image
   attr_reader :image
-
+  attr_reader :terminal_width 
   # 2 nested for loops, actually collects chunks into array of brightnesses
   def chunk(x, y)
     sum = 0
@@ -77,7 +79,7 @@ class Image
   end
 
   def width
-    @width ||= image.columns - (image.columns % TERMINAL_WIDTH)
+    @width ||= image.columns - (image.columns % terminal_width)
   end
 
   def height
@@ -85,6 +87,6 @@ class Image
   end
 
   def chunk_size
-    @chunk_size ||= width / TERMINAL_WIDTH
+    @chunk_size ||= width / terminal_width
   end
 end
